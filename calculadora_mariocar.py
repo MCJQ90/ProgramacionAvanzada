@@ -10,17 +10,25 @@ while not salir:
     while True:
         try:
             Num1 = input("Ingresa el primer número: ")
-            Num1 = int(Num1)
+            Num1 = float(Num1)
             break
         except ValueError:
             print("\nIngrese un número válido")
-    Num2 = input("Ingresa el segundo número: ")
-    Num2 = int(Num2)
+    while True:
+        try:
+            Num2 = input("Ingresa el segundo número: ")
+            Num2 = float(Num2)
+            break
+        except ValueError:
+            print("\nIngrese un número válido")
 
     SUMA = Num1 + Num2
     RESTA = Num1 - Num2
     MULTIPLICACION = Num1 * Num2
-    DIVISION = Num1 / Num2
+    try:
+        DIVISION = Num1 / Num2
+    except ZeroDivisionError:
+        DIVISION = "No es posible dividir para cero"
 
     while True:
         print("\nOpciones:")
