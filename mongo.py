@@ -8,7 +8,10 @@ def connect_to_mongo():
     db = client['JLcontador']
     return db['clientes']
 
-def add_user():
+def add_user(coleccion):
+    """
+        Este metodo agrega un cliente a la base de datos
+    """
     print("\nAgregar Cliente: ")
     print("\nTipo de identificación: ")
     print("1. Cédula")
@@ -83,14 +86,34 @@ def add_user():
         "nombre": nombre,
         "apellido": apellido,
         "direccion": direccion,
-        "ceular": celular,
+        "celular": celular,
         "email": email,
         "tipo de contribuyente": tipoContribuyente,
         "actividad economica": actividadEconomica
     }
 
-def list_user():
-    print("LISTA")
+    coleccion.insert_one(cliente)
+    print("\nCliente agregado correctamente")
+
+def list_user(coleccion):
+    """
+        Este metodo lista los clientes de la base de datos
+    """
+    print("\nLISTA de clientes: ")
+    clientes = coleccion.find()
+    for cliente in clientes:
+        print("\n------------------------------")
+        print(f"ID: {cliente['idcliente']}")
+        print(f"Nombre: {cliente['nombre']} {cliente['apellido']}")
+        print(f"Tipo ID: {cliente['tipo id']}")
+        print(f"Dirección: {cliente['direccion']}")
+        print(f"Celular: {cliente['celular']}")
+        print(f"Email: {cliente['email']}")
+        print(f"Tipo de Contribuyente: {cliente['tipo de contribuyente']}")
+        print(f"Actividad Económica: {cliente['actividad economica']}")
+        print("------------------------------")
+        
+    
 
 def main():
     coleccion = connect_to_mongo()
@@ -103,9 +126,9 @@ def main():
 
         opcion = input("Seleccione una opción:  ")
         if opcion == "1":
-            add_user()
+            add_user(coleccion)
         elif opcion == "2":
-            list_user()
+            list_user(coleccion)
         elif opcion == "3":
             print("Saliendo del programa")
             break
