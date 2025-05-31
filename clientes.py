@@ -113,7 +113,28 @@ def list_user(coleccion):
         print(f"Actividad Económica: {cliente['actividad economica']}")
         print("------------------------------")
         
-    
+def buscar_user(coleccion):
+    """
+        Este método permite buscar un cliente por número de identificación
+    """
+    print("\nBuscar Cliente:")
+    id_buscar = input("Ingrese el número de identificación del cliente: ")
+
+    cliente = coleccion.find_one({"idcliente": id_buscar})
+
+    if cliente:
+        print("\n--- Cliente encontrado ---")
+        print(f"ID: {cliente['idcliente']}")
+        print(f"Nombre: {cliente['nombre']} {cliente['apellido']}")
+        print(f"Tipo ID: {cliente['tipo id']}")
+        print(f"Dirección: {cliente['direccion']}")
+        print(f"Celular: {cliente['celular']}")
+        print(f"Email: {cliente['email']}")
+        print(f"Tipo de Contribuyente: {cliente['tipo de contribuyente']}")
+        print(f"Actividad Económica: {cliente['actividad economica']}")
+        print("------------------------------")
+    else:
+        print("\n Cliente no encontrado.")    
 
 def main():
     coleccion = connect_to_mongo()
@@ -122,7 +143,8 @@ def main():
         print("MENU")
         print("1. Agregar Cliente")
         print("2. Listar Clientes")
-        print("3. Salir")
+        print("3. Buscar Cliente")
+        print("4. Salir")
 
         opcion = input("Seleccione una opción:  ")
         if opcion == "1":
@@ -130,6 +152,8 @@ def main():
         elif opcion == "2":
             list_user(coleccion)
         elif opcion == "3":
+            buscar_user(coleccion)
+        elif opcion == "4":
             print("Saliendo del programa")
             break
         else:
